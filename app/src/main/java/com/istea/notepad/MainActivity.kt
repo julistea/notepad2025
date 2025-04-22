@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = "nueva"
+                    startDestination = "lista"
                 ){
                     composable("lista") { ListaDeNotasView(navController) }
                     composable("nueva") { NuevaNota(navController) }
