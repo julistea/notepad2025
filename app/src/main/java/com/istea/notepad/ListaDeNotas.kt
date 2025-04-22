@@ -23,7 +23,7 @@ import com.istea.notepad.ui.theme.NotePadTheme
 @Composable
 fun ListaDeNotasView(
     navController: NavController,
-    listaDeNotas: List<String>,
+    listaDeNotas: List<Nota>,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -62,7 +62,7 @@ fun ListaDeNotasView(
 @Preview(showBackground = true)
 @Composable
 private fun Preview(){
-    val list = listOf("")
+    val list = listOf<Nota>()
     NotePadTheme {
         ListaDeNotasView(
             rememberNavController(),

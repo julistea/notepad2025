@@ -33,7 +33,7 @@ import com.istea.notepad.ui.theme.NotePadTheme
 fun NuevaNota(
     navController: NavController,
     modifier: Modifier = Modifier,
-    onNuevaNota: (String, String) -> Unit
+    onNuevaNota: (Nota) -> Unit
 ) {
     Scaffold(
         modifier = modifier,
@@ -82,7 +82,9 @@ fun NuevaNota(
             Button(
                 onClick = {
                     navController.popBackStack()
-                    onNuevaNota(titulo,texto)
+                    onNuevaNota(
+                        Nota(titulo = titulo, texto = texto)
+                    )
                 },
                 modifier = Modifier.align(Alignment.End)) {
                 Text("Crear Nota")
@@ -97,6 +99,6 @@ fun NuevaNotaPreview() {
     NotePadTheme {
         NuevaNota(
             rememberNavController()
-        ) { _, _ -> }
+        ) { _ -> }
     }
 }

@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
 
             NotePadTheme {
                 val navController = rememberNavController()
-                val listaDeNotas = remember { mutableStateListOf<String>() }
+                val listaDeNotas = remember { mutableStateListOf<Nota>() }
                 NavHost(
                     navController = navController,
                     startDestination = "lista"
@@ -33,8 +33,8 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     composable("nueva") {
-                        NuevaNota(navController){ titulo, texto ->
-                            listaDeNotas.add(titulo)
+                        NuevaNota(navController){ nota ->
+                            listaDeNotas.add(nota)
                         }
                     }
                 }
