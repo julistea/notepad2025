@@ -21,7 +21,11 @@ import com.istea.notepad.ui.theme.NotePadTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListaDeNotasView(navController: NavController, modifier: Modifier = Modifier) {
+fun ListaDeNotasView(
+    navController: NavController,
+    listaDeNotas: List<String>,
+    modifier: Modifier = Modifier
+) {
     Scaffold(
         modifier = modifier,
         floatingActionButton = {
@@ -50,7 +54,7 @@ fun ListaDeNotasView(navController: NavController, modifier: Modifier = Modifier
         Column(
             modifier = Modifier.padding(padding)
         ) {
-            Text("Soy una lista de notas")
+            Text("Soy una lista de notas ${listaDeNotas.size}")
         }
     }
 }
@@ -58,9 +62,11 @@ fun ListaDeNotasView(navController: NavController, modifier: Modifier = Modifier
 @Preview(showBackground = true)
 @Composable
 private fun Preview(){
+    val list = listOf("")
     NotePadTheme {
         ListaDeNotasView(
-            rememberNavController()
+            rememberNavController(),
+            list
         )
     }
 }
