@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.soyhenry.notepad"
+    namespace = "com.istea.notepad"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.soyhenry.notepad"
+        applicationId = "com.istea.notepad"
         minSdk = 28
         targetSdk = 35
         versionCode = 1

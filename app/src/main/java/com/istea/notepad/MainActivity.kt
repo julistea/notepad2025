@@ -17,11 +17,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
 
-            val navController = rememberNavController()
             NotePadTheme {
+                val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = "lista"
+                    startDestination = "nueva"
                 ){
                     composable("lista") { ListaDeNotasView(navController) }
                     composable("nueva") { NuevaNota(navController) }
