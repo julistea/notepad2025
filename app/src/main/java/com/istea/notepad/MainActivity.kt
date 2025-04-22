@@ -1,4 +1,4 @@
-package com.soyhenry.notepad
+package com.istea.notepad
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
-import com.soyhenry.notepad.ui.theme.NotePadTheme
+import com.istea.notepad.ui.theme.NotePadTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

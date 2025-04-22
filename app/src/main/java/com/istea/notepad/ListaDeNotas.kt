@@ -1,4 +1,4 @@
-package com.soyhenry.notepad
+package com.istea.notepad
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.soyhenry.notepad.ui.theme.NotePadTheme
+import com.istea.notepad.ui.theme.NotePadTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

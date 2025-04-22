@@ -1,4 +1,4 @@
-package com.soyhenry.notepad
+package com.istea.notepad
 
 import org.junit.Test
 

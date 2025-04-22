@@ -1,4 +1,4 @@
-package com.soyhenry.notepad.ui.theme
+package com.istea.notepad.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
