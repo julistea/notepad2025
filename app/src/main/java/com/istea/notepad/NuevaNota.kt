@@ -30,7 +30,11 @@ import com.istea.notepad.ui.theme.NotePadTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NuevaNota(navController: NavController, modifier: Modifier = Modifier) {
+fun NuevaNota(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    onNuevaNota: (String, String) -> Unit
+) {
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -52,7 +56,7 @@ fun NuevaNota(navController: NavController, modifier: Modifier = Modifier) {
         ) {
 
             var titulo by remember { mutableStateOf("") }
-            val texto = remember { mutableStateOf("") }
+            var texto by remember { mutableStateOf("") }
             Text("Ingresar titulo")
             TextField(
                 modifier = Modifier.fillMaxWidth(),
@@ -65,19 +69,22 @@ fun NuevaNota(navController: NavController, modifier: Modifier = Modifier) {
 
             OutlinedTextField(
                 modifier = Modifier.weight(1f).fillMaxWidth(),
-                value = texto.value,
+                value = texto,
                 label = {
                     Text("Ingresar Texto")
                 },
                 onValueChange = {
-                    texto.value = it
+                    texto = it
                 }
             )
             Spacer(modifier = Modifier.height(16.dp))
 
-            Button(onClick = {
-                navController.popBackStack()
-            }, modifier = Modifier.align(Alignment.End)) {
+            Button(
+                onClick = {
+                    navController.popBackStack()
+                    onNuevaNota(titulo,texto)
+                },
+                modifier = Modifier.align(Alignment.End)) {
                 Text("Crear Nota")
             }
         }
@@ -90,6 +97,6 @@ fun NuevaNotaPreview() {
     NotePadTheme {
         NuevaNota(
             rememberNavController()
-        )
+        ) { _, _ -> }
     }
 }

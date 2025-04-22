@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     startDestination = "lista"
                 ){
                     composable("lista") { ListaDeNotasView(navController) }
-                    composable("nueva") { NuevaNota(navController) }
+                    composable("nueva") { NuevaNota(navController){_, _ ->} }
                 }
             }
         }
