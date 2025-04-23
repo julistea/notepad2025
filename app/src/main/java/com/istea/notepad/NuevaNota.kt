@@ -82,9 +82,8 @@ fun NuevaNota(
             Button(
                 onClick = {
                     navController.popBackStack()
-                    onNuevaNota(
-                        Nota(titulo = titulo, texto = texto)
-                    )
+                    val nota = Nota(titulo = titulo, texto = texto)
+                    onNuevaNota(nota)
                 },
                 modifier = Modifier.align(Alignment.End)) {
                 Text("Crear Nota")

@@ -37,6 +37,13 @@ class MainActivity : ComponentActivity() {
                             listaDeNotas.add(nota)
                         }
                     }
+                    composable("detalle/{titulo}") { backStack ->
+                        val titulo = backStack.arguments?.getString("titulo")
+                        val nota = listaDeNotas.first { nota ->
+                            nota.titulo == titulo
+                        }
+                        DetalleDeNotaView(navController, nota)
+                    }
                 }
             }
         }
