@@ -1,4 +1,4 @@
-package com.istea.notepad
+package com.istea.notepad.lista
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.Card
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -26,23 +25,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.istea.notepad.Nota
+import com.istea.notepad.detalle.DetalleIntencion
 import com.istea.notepad.ui.theme.NotePadTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListaDeNotasView(
-    navController: NavController,
-    listaDeNotas: List<Nota>,
-    modifier: Modifier = Modifier
+fun ListaView(
+    estado: ListaEstado,
+    onAction: (ListaIntencion) -> Unit
 ) {
+
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        onAction(ListaIntencion.CargarLista)
+    }
+
     Scaffold(
-        modifier = modifier,
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navController.navigate("nueva")
+                    onAction(ListaIntencion.NuevaNota)
                 }
             ) {
                 Icon(
@@ -62,53 +68,64 @@ fun ListaDeNotasView(
             )
         }
     ) { padding ->
-        LazyColumn(
-            modifier = Modifier.padding(padding),
-            contentPadding = PaddingValues(15.dp)
-        ) {
-            items(listaDeNotas) { nota ->
-                ElevatedCard(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable(
-                            onClick = {
-                                navController.navigate("detalle/${nota.titulo}")
-                            }
-                        )
-                ) {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(10.dp)
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .padding(horizontal = 15.dp)
-                                .padding(top = 10.dp),
-                            text = nota.titulo,
-                            style = MaterialTheme.typography.titleLarge
-                        )
-                        Text(
-                            modifier = Modifier
-                                .padding(horizontal = 15.dp)
-                                .padding(bottom = 10.dp),
-                            text = nota.texto,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-                }
-                Spacer(modifier.height(15.dp))
+        Column(modifier = Modifier.padding(padding))
+        {
+            when(estado) {
+                ListaEstado.Cargando -> Text("Cargando")
+                is ListaEstado.Error -> Text("Error")
+                is ListaEstado.Resultado -> ResultadoView(lista = estado.listaDeNotas, onAction = onAction)
+                ListaEstado.Vacio -> Text("Vacío")
             }
+
         }
     }
 }
 
+@Composable
+fun ResultadoView(modifier: Modifier = Modifier, lista: List<Nota>, onAction: (ListaIntencion) -> Unit) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(15.dp)
+    ) {
+        items(lista) { nota ->
+            ElevatedCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(
+                        onClick = {
+                            onAction(ListaIntencion.NotaSeleccionada(nota))
+                        }
+                    )
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .padding(horizontal = 15.dp)
+                            .padding(top = 10.dp),
+                        text = nota.titulo,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Text(
+                        modifier = Modifier
+                            .padding(horizontal = 15.dp)
+                            .padding(bottom = 10.dp),
+                        text = nota.texto,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+            Spacer(Modifier.height(15.dp))
+        }
+    }
+
+}
+
 @Preview(showBackground = true)
 @Composable
-private fun Preview(){
+private fun ListaPreview(){
     val list = listOf<Nota>()
     NotePadTheme {
-        ListaDeNotasView(
-            rememberNavController(),
-            list
-        )
     }
 }

@@ -10,7 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.istea.notepad.detalle.DetallePage
-import com.istea.notepad.detalle.DetalleView
+import com.istea.notepad.lista.ListaPage
+import com.istea.notepad.lista.ListaView
 
 import com.istea.notepad.ui.theme.NotePadTheme
 
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     startDestination = "lista"
                 ){
                     composable("lista") {
-                        ListaDeNotasView(
+                        ListaPage(
                             navController,
                             listaDeNotas
                         )
